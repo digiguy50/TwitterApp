@@ -2,12 +2,15 @@ package com.example.havlicek.TwitterApp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.app.ListActivity;
+import android.widget.TextView;
 
 
-public class TweetListActivity extends Activity {
-    private ListView tweetListView;
+public class TweetListActivity extends ListActivity {
+    //private ListView tweetListView;
     private String[] stringArray;
     private ArrayAdapter<String> tweetItemArrayAdapter;
 
@@ -23,8 +26,14 @@ public class TweetListActivity extends Activity {
 
         //tweetItemArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, stringArray);
         tweetItemArrayAdapter = new TweetAdapter(this, new String[10]);
-        tweetListView = (ListView) findViewById(R.id.tweetList);
-        tweetListView.setAdapter(tweetItemArrayAdapter);
+        //tweetListView = (ListView) findViewById(R.id.tweetList);
+        //tweetListView.setAdapter(tweetItemArrayAdapter);
+        setListAdapter(tweetItemArrayAdapter);
     }
 
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        TextView t = (TextView) v.findViewById(R.id.tweetTitle);
+        t.setText("Tweet Click!");
+    }
 }
