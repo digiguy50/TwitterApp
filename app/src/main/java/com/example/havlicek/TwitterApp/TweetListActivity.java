@@ -1,6 +1,7 @@
 package com.example.havlicek.TwitterApp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -33,7 +34,9 @@ public class TweetListActivity extends ListActivity {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        TextView t = (TextView) v.findViewById(R.id.tweetTitle);
-        t.setText("Tweet Click!");
+        //TextView t = (TextView) v.findViewById(R.id.tweetTitle);
+        //t.setText("Tweet Click!");
+        Intent intent = new Intent(this, TweetDetailActivity.class);
+        startActivity(intent);
     }
 }
