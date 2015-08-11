@@ -2,13 +2,15 @@ package com.example.havlicek.TwitterApp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
@@ -25,6 +27,24 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 //This is a comment line. The next line is replace.
                 // _loginBtn.setText("I am Clicked");
+                EditText username = (EditText) findViewById(R.id.fld_username);
+                EditText password = (EditText) findViewById(R.id.fld_pwd);
+                String usernameValue = username.getText().toString();
+                String passwordValue = password.getText().toString();
+                Log.d("CodeLearn","username - " + usernameValue);
+                Log.d("CodeLearn","password - " + passwordValue);
+
+                SharedPreferences prefs = getSharedPreferences("TwitterApp", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+
+                editor.putString("TwitterApp",usernameValue);
+                editor.commit();
+                editor.putString("TwitterApp", passwordValue);
+                editor.commit();
+
+                String testValue = prefs.getString("TwitterApp",null);
+                Log.d("CodeLearn", "testValue - " + testValue);
+
                 Intent intent = new Intent(MainActivity.this, TweetListActivity.class);
                 startActivity(intent);
             }
