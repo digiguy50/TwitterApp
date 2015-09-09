@@ -18,8 +18,24 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences prefs = getSharedPreferences("TwitterApp", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        String uname = prefs.getString("username", null);
+        String passwd = prefs.getString("password", null);
+
+        if (uname !=null && passwd != null) {
+            //super.onCreate(savedInstanceState);
+            //setContentView(R.layout.activity_tweet_list);
+            Intent intent = new Intent(MainActivity.this, TweetListActivity.class);
+            startActivity(intent);
+
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         _loginBtn = (Button) findViewById(R.id.btn_login);
 
         _loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -37,13 +53,9 @@ public class MainActivity extends Activity {
                 SharedPreferences prefs = getSharedPreferences("TwitterApp", MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
 
-                editor.putString("TwitterApp",usernameValue);
+                editor.putString("username", usernameValue);
+                editor.putString("password", passwordValue);
                 editor.commit();
-                editor.putString("TwitterApp", passwordValue);
-                editor.commit();
-
-                String testValue = prefs.getString("TwitterApp",null);
-                Log.d("CodeLearn", "testValue - " + testValue);
 
                 Intent intent = new Intent(MainActivity.this, TweetListActivity.class);
                 startActivity(intent);
